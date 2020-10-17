@@ -49,4 +49,4 @@
 
 ```
 
-You can just go to the makefile and change `pip3` in `make setup_env` to `pip`, and that should fix it for you.
+You can just go to the makefile and change `pip3` in `make setup_env` to `pip`, and `python3` to `python` and that should fix it for you.
