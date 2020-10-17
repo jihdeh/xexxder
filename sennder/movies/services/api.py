@@ -23,12 +23,12 @@ class MovieService:
         """
         url = "{}/people".format(self.BASE_URL)
         params = {"fields": "id,name,films", "limit": 250}
-        request = requests.get(url, params=params)
+        response = requests.get(url, params=params)
 
-        if request.status_code != 200:
+        if response.status_code != 200:
             # OP: use proper logger here, throw error and catch in caller
             return []
-        return request.json()
+        return response.json()
 
     def get_movies(self, movie_url: str) -> Union[MovieEntity, dict]:
         """Return a movie data
@@ -37,11 +37,11 @@ class MovieService:
         """
 
         params = {"fields": "id,title,description,release_date"}
-        request = requests.get(movie_url, params=params)
-        if request.status_code != 200:
+        response = requests.get(movie_url, params=params)
+        if response.status_code != 200:
             # OP: use proper logger here, throw error and catch in caller
             return {}
-        return request.json()
+        return response.json()
 
     def get(self) -> List[MappedMovieEntity]:
         """Return a list of movies

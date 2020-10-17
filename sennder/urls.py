@@ -7,7 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path(
         "movies/",
-        MoviesView.as_view(template_name="movies/movies.html"),
+        MoviesView.as_view(),
         name="Movies View",
     ),
 ]
