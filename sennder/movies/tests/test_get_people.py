@@ -14,18 +14,20 @@ class TestGetPeople(unittest.TestCase):
     MOCK_ADDRESS = test_people_url
 
     @requests_mock.Mocker()
-    def test_people(self, m):
+    def test_people(self, mock_request):
         service = MovieService()
-        m.get(self.MOCK_ADDRESS, json=test_people_resp)
-        req = service.get_people()
+        mock_request.get(self.MOCK_ADDRESS, json=test_people_resp)
+        request = service.get_people()
 
-        self.assertEqual(len(req), len(test_people_resp))
-        self.assertEqual(req[0]["name"], "Ashitaka")
+        self.assertEqual(len(request), len(test_people_resp))
+        self.assertEqual(request[0]["name"], "Ashitaka")
 
     @requests_mock.Mocker()
-    def test_people_bad_request(self, m):
+    def test_people_bad_request(self, mock_request):
         service = MovieService()
-        m.get(self.MOCK_ADDRESS, json=test_people_resp, status_code=400)
-        req = service.get_people()
+        mock_request.get(
+            self.MOCK_ADDRESS, json=test_people_resp, status_code=400
+        )
+        request = service.get_people()
 
-        self.assertEqual(req, [])
+        self.assertEqual(request, [])

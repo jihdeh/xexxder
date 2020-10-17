@@ -56,7 +56,7 @@ class TestMappingLogic(unittest.TestCase):
         mock_request.get(self.MOCK_MOVIE_ADDRESS_ONE, json=test_movies_resp[0])
         mock_request.get(self.MOCK_MOVIE_ADDRESS_TWO, json=test_movies_resp[1])
         service = MovieService()
-        req = service.get()
+        service_request = service.get()
 
         # Views Test MoviesView() as if it were deployed at /movies
         request = self.factory.get("/movies")
@@ -64,7 +64,7 @@ class TestMappingLogic(unittest.TestCase):
         response = view.get_context_data(request)
 
         self.assertListEqual(response["movies"], test_movies_resp)
-        self.assertListEqual(req, test_movies_resp)
+        self.assertListEqual(service_request, test_movies_resp)
 
     @requests_mock.Mocker()
     @patch("redis.StrictRedis.set")
@@ -82,6 +82,6 @@ class TestMappingLogic(unittest.TestCase):
             self.MOCK_PEOPLE_ADDRESS, json=test_people_resp, status_code=400
         )
 
-        req = service.get()
+        request = service.get()
 
-        self.assertEqual(req, [])
+        self.assertEqual(request, [])

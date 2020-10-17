@@ -13,7 +13,7 @@ redis = RedisCache()
 
 class MovieService:
 
-    BASE = settings.MOVIE_BASE_API_URL
+    BASE_URL = settings.MOVIE_BASE_API_URL
     REDIS_MOVIES_KEY = "movies"
 
     def get_people(self) -> List[PersonEntity]:
@@ -21,15 +21,14 @@ class MovieService:
 
         Request to get all people
         """
-        url = f"{self.BASE}/people"
+        url = "{}/people".format(self.BASE_URL)
         params = {"fields": "id,name,films", "limit": 250}
-        r = requests.get(url, params=params)
+        request = requests.get(url, params=params)
 
-        if r.status_code != 200:
+        if request.status_code != 200:
             # OP: use proper logger here, throw error and catch in caller
             return []
-        people = r.json()
-        return people
+        return request.json()
 
     def get_movies(self, movie_url: str) -> Union[MovieEntity, dict]:
         """Return a movie data
@@ -38,12 +37,11 @@ class MovieService:
         """
 
         params = {"fields": "id,title,description,release_date"}
-        r = requests.get(movie_url, params=params)
-        if r.status_code != 200:
+        request = requests.get(movie_url, params=params)
+        if request.status_code != 200:
             # OP: use proper logger here, throw error and catch in caller
             return {}
-        movie = r.json()
-        return movie
+        return request.json()
 
     def get(self) -> List[MappedMovieEntity]:
         """Return a list of movies

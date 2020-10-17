@@ -13,17 +13,19 @@ class TestGetMovie(unittest.TestCase):
     MOCK_ADDRESS = test_movie_url
 
     @requests_mock.Mocker()
-    def test_movie(self, m):
+    def test_movie(self, mock_request):
         service = MovieService()
-        m.get(self.MOCK_ADDRESS, json=test_movie_resp)
-        req = service.get_movies(test_movie_url)
+        mock_request.get(self.MOCK_ADDRESS, json=test_movie_resp)
+        request = service.get_movies(test_movie_url)
 
-        self.assertEqual(len(req), len(test_movie_resp))
-        self.assertEqual(req["title"], "Castle in the Sky")
+        self.assertEqual(len(request), len(test_movie_resp))
+        self.assertEqual(request["title"], "Castle in the Sky")
 
     @requests_mock.Mocker()
-    def test_movie_bad_request(self, m):
+    def test_movie_bad_request(self, mock_request):
         service = MovieService()
-        m.get(self.MOCK_ADDRESS, json=test_movie_resp, status_code=400)
-        req = service.get_movies(test_movie_url)
-        self.assertEqual(req, {})
+        mock_request.get(
+            self.MOCK_ADDRESS, json=test_movie_resp, status_code=400
+        )
+        request = service.get_movies(test_movie_url)
+        self.assertEqual(request, {})

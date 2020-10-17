@@ -24,7 +24,6 @@ setup_env: # helpful for this task to avoid creating a manual env file
 	touch ./sennder/.env
 	cp .env.example sennder/.env
 
-.PHONY: source
 setup_venv: setup_env
 	python3 -m venv .venv
 	. .venv/bin/activate

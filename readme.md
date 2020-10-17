@@ -8,8 +8,8 @@
   - A `.env` is auto-generated on project build just to avoid you manually creating an env file yourself for "this test"
   - When project is done building head over to http://localhost:8000/movies/
 
-### PREREQUISITES
-  In order to run other commands, to check test, lint and type, it is required to run the command `make setup_venv` to set the environment and setup venv. After running that command, the below can be run in any other order.
+### Running Tests, Lints and Type Checks
+  In order to run other commands, to check test, lint and type, it is required to run the command `make setup_venv` to set the environment and setup venv. After running that command, the below can be run in no particular order.
 
   - make setup_venv  - important first step
   - make test
@@ -38,3 +38,4 @@
   
     - One first page load, should display the page then add a loader instead of nothing showing up first
     - Other helpful feature would have been pagination.
+    - Polling can be used to check and update data(if any) on the view at intervals
