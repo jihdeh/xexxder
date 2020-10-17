@@ -35,7 +35,18 @@
     - Code space/time complexity is O(n)T, O(n)S
 
   ### Can improve
-  
+
     - One first page load, should display the page then add a loader instead of nothing showing up first
     - Other helpful feature would have been pagination.
     - Polling can be used to check and update data(if any) on the view at intervals
+
+### Debug
+
+  This project runs on python3 and pip3, if by chance you're using a different version and you run `make setup_env` you might encounter an error like the one below.
+
+```
+  make: pip3: no such file or directory
+
+```
+
+You can just go to the makefile and change `pip3` in `make setup_env` to `pip`, and that should fix it for you.

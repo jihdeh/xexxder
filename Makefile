@@ -24,12 +24,12 @@ test:
 
 .PHONY: setup_env
 setup_env: # helpful for this task to avoid creating a manual env file
-	touch ./sennder/.env
-	cp .env.example sennder/.env
+	touch .env
+	cp .env.example .env
 
 setup_venv: setup_env
 	$(info $(SHOW_INFO_ICON) Setting up environment ...)
 	python3 -m venv .venv
 	. .venv/bin/activate
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 	$(info $(SHOW_SUCCESS_ICON) Env setup complete)

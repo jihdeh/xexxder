@@ -67,16 +67,16 @@ class MovieService:
         Method to map persons to movies
         """
 
-        movie_urls_hash_store = {}
+        movie_urls = {}
         structured_movie_data = []
 
         for person in people:
             movies = person["films"]
             for movie_url in movies:
-                if movie_url in movie_urls_hash_store:
+                if movie_url in movie_urls:
                     # skip adding to hash
                     # but add person to movie list via index
-                    movie_url_index_value = movie_urls_hash_store[movie_url]
+                    movie_url_index_value = movie_urls[movie_url]
                     movie = structured_movie_data[movie_url_index_value]
 
                     # if person[films] has movie id then add
@@ -91,11 +91,11 @@ class MovieService:
                         movie = get_movie_data
                         movie["people"] = [person]
                         structured_movie_data.append(movie)
-                        movie_urls_hash_store[movie_url] = (
+                        movie_urls[movie_url] = (
                             len(structured_movie_data) - 1
                         )
 
-        movie_urls_hash_store = {}
+        movie_urls = {}
 
         redis.set(self.REDIS_MOVIES_KEY, structured_movie_data)
         return structured_movie_data
